@@ -16,9 +16,14 @@ export const colors = {
     secondary: "#757575",
     disabled: "#BDBDBD",
     hint: "#9E9E9E",
+    main: "#13231B",
+    placeholder: "#AFAFAF",
   },
   divider: "#E0E0E0",
   white: "#FFFFFF",
   black: "#000000",
   transparent: "transparent",
+  grey: {
+    light: "#F7F7F7",
+  },
 };
