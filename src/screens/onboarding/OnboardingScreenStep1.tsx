@@ -35,7 +35,7 @@ const OnboardingStep1Screen: React.FC<Props> = ({ navigation }) => {
               <View style={styles.brushContainer}>
                 <Text style={styles.titleBold}>identify</Text>
                 <Image
-                  source={require("../../../assets/images/brush.png")}
+                  source={require("../../../assets/images/onboarding/brush.png")}
                   style={styles.brushImage}
                   resizeMode="contain"
                 />
@@ -47,16 +47,22 @@ const OnboardingStep1Screen: React.FC<Props> = ({ navigation }) => {
           {/* Central Plant Image */}
           <View style={styles.imageContainer}>
             <Image
-              source={require("../../../assets/images/onboardingStep1Image.png")}
+              source={require("../../../assets/images/onboarding/onboardingStep1Image.png")}
               style={styles.image}
               resizeMode="contain"
             />
           </View>
 
           {/* Button and Pagination */}
-          <Button title="Continue" onPress={handleNext} size="medium" />
+
           <View style={styles.bottomSection}>
             {/* Pagination Dots */}
+            <Button
+              title="Continue"
+              onPress={handleNext}
+              size="medium"
+              fullWidth
+            />
             <View style={styles.pagination}>
               <View style={[styles.dot, styles.activeDot]} />
               <View style={styles.dot} />
@@ -79,7 +85,6 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    paddingHorizontal: theme.spacing.lg,
   },
   titleContainer: {
     flexDirection: "row",
@@ -90,6 +95,7 @@ const styles = StyleSheet.create({
     paddingTop: theme.spacing.xl,
     paddingBottom: theme.spacing.lg,
     alignItems: "flex-start",
+    paddingHorizontal: theme.spacing.lg,
   },
   title: {
     fontSize: theme.fontSize.xxxl,
@@ -119,12 +125,14 @@ const styles = StyleSheet.create({
     height: "100%",
   },
   bottomSection: {
-    paddingVertical: theme.spacing.smm,
+    paddingBottom: theme.spacing.smm,
     alignItems: "center",
+    paddingHorizontal: theme.spacing.lg,
   },
   pagination: {
     flexDirection: "row",
     gap: theme.spacing.sm,
+    paddingTop: theme.spacing.sm,
   },
   dot: {
     width: 8,

@@ -49,7 +49,7 @@ const WelcomeScreen: React.FC<Props> = ({ navigation }) => {
           {/* Central Plant Image */}
           <View style={styles.plantContainer}>
             <Image
-              source={require("../../../assets/images/welcomeImage.png")}
+              source={require("../../../assets/images/onboarding/welcomeImage.png")}
               style={styles.plantImage}
               resizeMode="contain"
             />
