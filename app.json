@@ -1,8 +1,9 @@
 {
   "expo": {
     "name": "PlantApp",
-    "slug": "PlantApp",
+    "slug": "plantapp",
     "version": "1.0.0",
+    "description": "Identify plants with AI-powered technology",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "plantapp",
