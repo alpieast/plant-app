@@ -9,7 +9,12 @@ import {
 } from "react-native";
 import { theme } from "../../theme";
 
-const HomeHeader: React.FC = () => {
+interface HomeHeaderProps {
+  searchText: string;
+  onSearch: (text: string) => void;
+}
+
+const HomeHeader: React.FC<HomeHeaderProps> = ({ searchText, onSearch }) => {
   const getGreeting = () => {
     const hour = new Date().getHours();
     if (hour < 12) return "Good Morning! ☀️";
@@ -41,6 +46,8 @@ const HomeHeader: React.FC = () => {
             style={styles.searchInput}
             placeholder="Search for plants"
             placeholderTextColor={theme.colors.text.placeholder}
+            value={searchText}
+            onChangeText={onSearch}
           />
         </View>
       </ImageBackground>

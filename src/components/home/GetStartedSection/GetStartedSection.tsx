@@ -12,7 +12,13 @@ import { fetchQuestions } from "../../../store/slices/questionsSlice";
 import { theme } from "../../../theme";
 import QuestionCard from "./QuestionCard";
 
-const GetStartedSection: React.FC = () => {
+interface GetStartedSectionProps {
+  hidden?: boolean;
+}
+
+const GetStartedSection: React.FC<GetStartedSectionProps> = ({
+  hidden = false,
+}: GetStartedSectionProps) => {
   const { questions, isLoading, error } = useSelector(
     (state: RootState) => state.questions
   );
@@ -31,7 +37,7 @@ const GetStartedSection: React.FC = () => {
   }
 
   return (
-    <View style={styles.section}>
+    <View style={hidden ? styles.hidden : styles.section}>
       <Text style={styles.sectionTitle}>Get Started</Text>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         {questions.map((question) => {
@@ -52,6 +58,9 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: theme.colors.text.main,
     marginBottom: theme.spacing.lg,
+  },
+  hidden: {
+    height: 0,
   },
 });
 

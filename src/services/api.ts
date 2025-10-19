@@ -5,7 +5,12 @@ const BASE_URL = "https://dummy-api-jtg6bessta-ey.a.run.app";
 export class ApiService {
   static async getCategories(): Promise<Category[]> {
     try {
-      const response = await fetch(`${BASE_URL}/getCategories`);
+      const response = await fetch(`${BASE_URL}/getCategories`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
