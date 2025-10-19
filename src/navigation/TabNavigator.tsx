@@ -1,6 +1,6 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from "react";
-import { Dimensions, StyleSheet, TouchableOpacity, View } from "react-native";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
 
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import {
@@ -17,8 +17,6 @@ import ProfileScreen from "../screens/home/ProfileScreen";
 import { TabParamList } from "../types";
 
 const Tab = createBottomTabNavigator<TabParamList>();
-
-const { width } = Dimensions.get("window");
 
 const TabNavigator: React.FC = () => {
   const insets = useSafeAreaInsets();
