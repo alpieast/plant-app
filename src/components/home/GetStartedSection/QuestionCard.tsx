@@ -8,8 +8,8 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { theme } from "../../theme";
-import { Question } from "../../types";
+import { theme } from "../../../theme";
+import { Question } from "../../../types";
 
 interface QuestionCardProps {
   question: Question;

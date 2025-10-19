@@ -7,9 +7,9 @@ import {
   View,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../store";
-import { fetchQuestions } from "../../store/slices/questionsSlice";
-import { theme } from "../../theme";
+import { AppDispatch, RootState } from "../../../store";
+import { fetchQuestions } from "../../../store/slices/questionsSlice";
+import { theme } from "../../../theme";
 import QuestionCard from "./QuestionCard";
 
 const GetStartedSection: React.FC = () => {

@@ -42,7 +42,7 @@ export interface RootState {
 // Navigation Types
 export type RootStackParamList = {
   Onboarding: undefined;
-  Home: undefined;
+  Main: undefined;
 };
 
 export type OnboardingStackParamList = {

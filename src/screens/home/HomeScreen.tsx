@@ -3,7 +3,7 @@ import React from "react";
 import { ScrollView, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import CategoriesSection from "../../components/home/CategoriesSection";
-import GetStartedSection from "../../components/home/GetStartedSection";
+import GetStartedSection from "../../components/home/GetStartedSection/GetStartedSection";
 import HomeHeader from "../../components/home/HomeHeader";
 import PremiumBanner from "../../components/home/PremiumBanner";
 
