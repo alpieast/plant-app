@@ -1,7 +1,6 @@
 import { StackNavigationProp } from "@react-navigation/stack";
 import React from "react";
 import {
-  Dimensions,
   Image,
   ImageBackground,
   StyleSheet,
@@ -22,8 +21,6 @@ type WelcomeScreenNavigationProp = StackNavigationProp<
 interface Props {
   navigation: WelcomeScreenNavigationProp;
 }
-
-const { width, height } = Dimensions.get("window");
 
 const WelcomeScreen: React.FC<Props> = ({ navigation }) => {
   const handleNext = () => {
