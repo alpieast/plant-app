@@ -35,4 +35,7 @@ export const colors = {
   gold: {
     primary: "#D0B070",
   },
+  green: {
+    paywall: "#101E17",
+  },
 };

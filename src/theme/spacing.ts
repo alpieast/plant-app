@@ -14,10 +14,12 @@ export const borderRadius = {
   md: 8,
   lg: 12,
   xl: 16,
+  xxl: 20,
   round: 50,
 };
 
 export const fontSize = {
+  xxs: 9,
   xs: 12,
   sm: 14,
   md: 16,

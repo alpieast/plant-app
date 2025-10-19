@@ -1,7 +1,12 @@
+import { LeafIcon, ScanIcon, SpeedMeterIcon } from "@/src/components/icons";
+import { FeatureCard } from "@/src/components/onboarding/FeatureCard";
+import SubscriptionOption from "@/src/components/onboarding/SubscriptionOption";
 import { StackNavigationProp } from "@react-navigation/stack";
 import React, { useState } from "react";
 import {
   Dimensions,
+  ImageBackground,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -24,7 +29,25 @@ interface Props {
   navigation: PaywallScreenNavigationProp;
 }
 
-const { width, height } = Dimensions.get("window");
+const features = [
+  {
+    icon: <ScanIcon size={theme.fontSize.md} fill={theme.colors.white} />,
+    title: "Unlimited",
+    subtitle: "Plant Identify",
+  },
+  {
+    icon: <SpeedMeterIcon size={theme.fontSize.md} fill={theme.colors.white} />,
+    title: "Faster",
+    subtitle: "Process",
+  },
+  {
+    icon: <LeafIcon size={theme.fontSize.md} fill={theme.colors.white} />,
+    title: "Detailed",
+    subtitle: "Plant care",
+  },
+];
+
+const { height } = Dimensions.get("window");
 
 const PaywallScreen: React.FC<Props> = ({ navigation }) => {
   const dispatch = useDispatch<AppDispatch>();
@@ -42,107 +65,56 @@ const PaywallScreen: React.FC<Props> = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.content}>
-        {/* Background */}
-        <View style={styles.backgroundImage}>
-          <View style={styles.scanFrame}>
-            <Text style={styles.plantEmoji}>🌿</Text>
-          </View>
-        </View>
-
+    <SafeAreaView style={styles.container} edges={["left", "right", "bottom"]}>
+      <ImageBackground
+        source={require("../../../assets/images/backgrounds/paywallBackground.png")}
+        style={styles.backgroundImage}
+        resizeMode="cover"
+      >
         {/* Close Button */}
         <TouchableOpacity style={styles.closeButton} onPress={handleClose}>
-          <Text style={styles.closeIcon}>✕</Text>
+          <View style={styles.closeButtonInner}>
+            <Text style={styles.closeIcon}>✕</Text>
+          </View>
         </TouchableOpacity>
-
-        {/* Header */}
         <View style={styles.header}>
-          <Text style={styles.title}>PlantApp Premium</Text>
+          <View style={styles.titleContainer}>
+            <Text style={styles.titleBold}>PlantApp </Text>
+            <Text style={styles.title}>Premium</Text>
+          </View>
+
           <Text style={styles.subtitle}>Access All Features</Text>
         </View>
+      </ImageBackground>
 
+      <ScrollView style={styles.content}>
         {/* Feature Cards */}
-        <View style={styles.featureCards}>
-          <View style={styles.featureCard}>
-            <View style={styles.featureIcon}>
-              <Text style={styles.iconText}>📷</Text>
-            </View>
-            <Text style={styles.featureTitle}>Unlimited</Text>
-            <Text style={styles.featureSubtitle}>Plant Identify</Text>
-          </View>
-
-          <View style={styles.featureCard}>
-            <View style={styles.featureIcon}>
-              <Text style={styles.iconText}>⚡</Text>
-            </View>
-            <Text style={styles.featureTitle}>Faster</Text>
-            <Text style={styles.featureSubtitle}>Process</Text>
-          </View>
-
-          <View style={styles.featureCard}>
-            <View style={styles.featureIcon}>
-              <Text style={styles.iconText}>📊</Text>
-            </View>
-            <Text style={styles.featureTitle}>Detailed</Text>
-            <Text style={styles.featureSubtitle}>Reports</Text>
-          </View>
-        </View>
+        <ScrollView
+          horizontal
+          style={styles.featureCards}
+          showsHorizontalScrollIndicator={false}
+        >
+          {features.map((feature) => (
+            <FeatureCard key={feature.title} {...feature} />
+          ))}
+        </ScrollView>
 
         {/* Subscription Options */}
         <View style={styles.subscriptionSection}>
-          <TouchableOpacity
-            style={[
-              styles.subscriptionOption,
-              selectedPlan === "monthly" && styles.selectedOption,
-            ]}
+          <SubscriptionOption
+            title="1 Month"
+            subtitle="$2.99/month, auto renewable"
+            isSelected={selectedPlan === "monthly"}
             onPress={() => setSelectedPlan("monthly")}
-          >
-            <View style={styles.optionLeft}>
-              <View
-                style={[
-                  styles.radioButton,
-                  selectedPlan === "monthly" && styles.selectedRadio,
-                ]}
-              >
-                {selectedPlan === "monthly" && <View style={styles.radioDot} />}
-              </View>
-              <View style={styles.optionText}>
-                <Text style={styles.optionTitle}>1 Month</Text>
-                <Text style={styles.optionSubtitle}>
-                  $2.99/month, auto renewable
-                </Text>
-              </View>
-            </View>
-          </TouchableOpacity>
+          />
 
-          <TouchableOpacity
-            style={[
-              styles.subscriptionOption,
-              selectedPlan === "yearly" && styles.selectedOption,
-            ]}
+          <SubscriptionOption
+            title="1 Year"
+            subtitle="First 3 days free, then $529,99/year"
+            isSelected={selectedPlan === "yearly"}
             onPress={() => setSelectedPlan("yearly")}
-          >
-            <View style={styles.optionLeft}>
-              <View
-                style={[
-                  styles.radioButton,
-                  selectedPlan === "yearly" && styles.selectedRadio,
-                ]}
-              >
-                {selectedPlan === "yearly" && <View style={styles.radioDot} />}
-              </View>
-              <View style={styles.optionText}>
-                <Text style={styles.optionTitle}>1 Year</Text>
-                <Text style={styles.optionSubtitle}>
-                  First 3 days free, then $529,99/year
-                </Text>
-              </View>
-            </View>
-            <View style={styles.saveBadge}>
-              <Text style={styles.saveText}>Save 50%</Text>
-            </View>
-          </TouchableOpacity>
+            saveBadge="Save 50%"
+          />
         </View>
 
         {/* Subscribe Button */}
@@ -150,7 +122,7 @@ const PaywallScreen: React.FC<Props> = ({ navigation }) => {
           <Button
             title="Try free for 3 days"
             onPress={handleSubscribe}
-            size="large"
+            size="medium"
             style={styles.subscribeButton}
           />
 
@@ -165,7 +137,7 @@ const PaywallScreen: React.FC<Props> = ({ navigation }) => {
         <View style={styles.footer}>
           <Text style={styles.footerText}>Terms • Privacy • Restore</Text>
         </View>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -173,192 +145,93 @@ const PaywallScreen: React.FC<Props> = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#1B5E20",
-  },
-  content: {
-    flex: 1,
-    paddingHorizontal: theme.spacing.lg,
+    backgroundColor: theme.colors.green.paywall,
   },
   backgroundImage: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    height: height * 0.4,
-    backgroundColor: "#2E7D32",
-    justifyContent: "center",
-    alignItems: "center",
+    height: height * 0.45,
+    width: "100%",
+    justifyContent: "flex-end",
+    alignItems: "flex-start",
   },
-  scanFrame: {
-    width: 200,
-    height: 200,
-    borderRadius: 20,
-    borderWidth: 2,
-    borderColor: "rgba(255,255,255,0.3)",
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "rgba(255,255,255,0.1)",
-  },
-  plantEmoji: {
-    fontSize: 80,
+  header: {
+    alignItems: "flex-start",
+    paddingHorizontal: theme.spacing.lg,
+    paddingBottom: theme.spacing.lg,
   },
   closeButton: {
     position: "absolute",
     top: 50,
     right: 20,
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    backgroundColor: "rgba(0,0,0,0.3)",
-    justifyContent: "center",
-    alignItems: "center",
     zIndex: 10,
   },
+  closeButtonInner: {
+    width: 32,
+    height: 32,
+    borderRadius: theme.borderRadius.xl,
+    backgroundColor: "rgba(255,255,255,0.2)",
+    justifyContent: "center",
+    alignItems: "center",
+  },
   closeIcon: {
-    fontSize: 20,
-    color: "#FFFFFF",
+    fontSize: theme.fontSize.md,
+    color: theme.colors.white,
     fontWeight: "bold",
   },
-  header: {
+  content: {
+    flex: 1,
+    backgroundColor: theme.colors.green.paywall,
+  },
+  titleContainer: {
+    flexDirection: "row",
     alignItems: "center",
-    paddingTop: height * 0.25,
-    paddingBottom: theme.spacing.xl,
+    justifyContent: "flex-start",
   },
   title: {
-    fontSize: 32,
+    fontSize: theme.fontSize.xxl,
+    fontWeight: "medium",
+    color: theme.colors.white,
+    textAlign: "center",
+    marginBottom: theme.spacing.sm,
+  },
+  titleBold: {
+    fontSize: theme.fontSize.xxl,
     fontWeight: "bold",
-    color: "#FFFFFF",
+    color: theme.colors.white,
     textAlign: "center",
     marginBottom: theme.spacing.sm,
   },
   subtitle: {
-    fontSize: 16,
-    color: "#FFFFFF",
+    fontSize: theme.fontSize.md,
+    color: "rgba(255,255,255,0.8)",
     textAlign: "center",
+    fontWeight: "light",
   },
   featureCards: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginBottom: theme.spacing.xl,
-    paddingHorizontal: theme.spacing.sm,
-  },
-  featureCard: {
-    backgroundColor: "rgba(255,255,255,0.1)",
-    borderRadius: 16,
-    padding: theme.spacing.md,
-    alignItems: "center",
-    flex: 1,
-    marginHorizontal: 4,
-  },
-  featureIcon: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    backgroundColor: "rgba(255,255,255,0.2)",
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: theme.spacing.sm,
-  },
-  iconText: {
-    fontSize: 24,
-  },
-  featureTitle: {
-    fontSize: 16,
-    fontWeight: "bold",
-    color: "#FFFFFF",
-    textAlign: "center",
-    marginBottom: 4,
-  },
-  featureSubtitle: {
-    fontSize: 12,
-    color: "rgba(255,255,255,0.8)",
-    textAlign: "center",
+    paddingBottom: theme.spacing.lg,
+    paddingLeft: theme.spacing.lg,
   },
   subscriptionSection: {
-    marginBottom: theme.spacing.xl,
-  },
-  subscriptionOption: {
-    backgroundColor: "rgba(255,255,255,0.1)",
-    borderRadius: 16,
-    padding: theme.spacing.lg,
-    marginBottom: theme.spacing.md,
-    borderWidth: 2,
-    borderColor: "transparent",
-  },
-  selectedOption: {
-    borderColor: "#4CAF50",
-    backgroundColor: "rgba(76,175,80,0.1)",
-  },
-  optionLeft: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  radioButton: {
-    width: 24,
-    height: 24,
-    borderRadius: 12,
-    borderWidth: 2,
-    borderColor: "rgba(255,255,255,0.5)",
-    marginRight: theme.spacing.md,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  selectedRadio: {
-    borderColor: "#4CAF50",
-  },
-  radioDot: {
-    width: 12,
-    height: 12,
-    borderRadius: 6,
-    backgroundColor: "#4CAF50",
-  },
-  optionText: {
-    flex: 1,
-  },
-  optionTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "#FFFFFF",
-    marginBottom: 4,
-  },
-  optionSubtitle: {
-    fontSize: 14,
-    color: "rgba(255,255,255,0.8)",
-  },
-  saveBadge: {
-    position: "absolute",
-    top: 12,
-    right: 12,
-    backgroundColor: "#4CAF50",
-    borderRadius: 12,
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-  },
-  saveText: {
-    fontSize: 12,
-    fontWeight: "bold",
-    color: "#FFFFFF",
+    paddingHorizontal: theme.spacing.lg,
   },
   buttonSection: {
-    marginBottom: theme.spacing.xl,
+    paddingHorizontal: theme.spacing.lg,
   },
   subscribeButton: {
     width: "100%",
-    marginBottom: theme.spacing.lg,
+    marginBottom: theme.spacing.md,
   },
   disclaimerText: {
-    fontSize: 12,
-    color: "rgba(255,255,255,0.7)",
+    fontSize: theme.fontSize.xxs,
+    color: "rgba(255,255,255,0.5)",
     textAlign: "center",
-    lineHeight: 16,
   },
   footer: {
     alignItems: "center",
-    paddingBottom: theme.spacing.lg,
+    paddingVertical: theme.spacing.md,
   },
   footerText: {
-    fontSize: 14,
-    color: "rgba(255,255,255,0.8)",
+    fontSize: theme.fontSize.xs,
+    color: "rgba(255,255,255,0.7)",
     textAlign: "center",
   },
 });
