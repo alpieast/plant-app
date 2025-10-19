@@ -1,6 +1,6 @@
 import { theme } from "@/src/theme";
 import React from "react";
-import { ScrollView, StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import CategoriesSection from "../../components/home/CategoriesSection";
 import GetStartedSection from "../../components/home/GetStartedSection";
@@ -18,9 +18,6 @@ const HomeScreen: React.FC = () => {
         <PremiumBanner />
         <GetStartedSection />
         <CategoriesSection />
-
-        {/* Bottom Spacing for Tab Bar */}
-        <View style={styles.bottomSpacing} />
       </ScrollView>
     </SafeAreaView>
   );

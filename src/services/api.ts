@@ -19,12 +19,17 @@ export class ApiService {
 
   static async getQuestions(): Promise<Question[]> {
     try {
-      const response = await fetch(`${BASE_URL}/getQuestions`);
+      const response = await fetch(`${BASE_URL}/getQuestions`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const data = await response.json();
-      return data.data || [];
+      return data || [];
     } catch (error) {
       console.error("Error fetching questions:", error);
       throw error;

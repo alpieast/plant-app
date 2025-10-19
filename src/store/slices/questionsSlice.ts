@@ -1,6 +1,6 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { ApiService } from '../../services/api';
-import { Question, QuestionsState } from '../../types';
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { ApiService } from "../../services/api";
+import { Question, QuestionsState } from "../../types";
 
 const initialState: QuestionsState = {
   questions: [],
@@ -11,19 +11,21 @@ const initialState: QuestionsState = {
 
 // Async thunk to fetch questions
 export const fetchQuestions = createAsyncThunk(
-  'questions/fetchQuestions',
+  "questions/fetchQuestions",
   async (_, { rejectWithValue }) => {
     try {
       const questions = await ApiService.getQuestions();
       return questions;
     } catch (error) {
-      return rejectWithValue(error instanceof Error ? error.message : 'Failed to fetch questions');
+      return rejectWithValue(
+        error instanceof Error ? error.message : "Failed to fetch questions"
+      );
     }
   }
 );
 
 const questionsSlice = createSlice({
-  name: 'questions',
+  name: "questions",
   initialState,
   reducers: {
     setSelectedCategory: (state, action: PayloadAction<number>) => {
@@ -43,10 +45,13 @@ const questionsSlice = createSlice({
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(fetchQuestions.fulfilled, (state, action: PayloadAction<Question[]>) => {
-        state.isLoading = false;
-        state.questions = action.payload;
-      })
+      .addCase(
+        fetchQuestions.fulfilled,
+        (state, action: PayloadAction<Question[]>) => {
+          state.isLoading = false;
+          state.questions = action.payload;
+        }
+      )
       .addCase(fetchQuestions.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload as string;
@@ -54,5 +59,6 @@ const questionsSlice = createSlice({
   },
 });
 
-export const { setSelectedCategory, clearError, clearQuestions } = questionsSlice.actions;
+export const { setSelectedCategory, clearError, clearQuestions } =
+  questionsSlice.actions;
 export default questionsSlice.reducer;

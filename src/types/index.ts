@@ -7,11 +7,11 @@ export interface Category {
 
 export interface Question {
   id: number;
-  question: string;
-  image: string;
-  options: string[];
-  answer: number;
-  explanation: string;
+  title: string;
+  subtitle: string;
+  image_uri: string;
+  uri: string;
+  order: number;
 }
 
 // Redux State Types
