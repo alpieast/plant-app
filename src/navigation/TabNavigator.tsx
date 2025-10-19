@@ -1,13 +1,15 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from "react";
-import {
-  Dimensions,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Dimensions, StyleSheet, TouchableOpacity, View } from "react-native";
 
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import {
+  DiagnoseIcon,
+  HomeIcon,
+  MyGardenIcon,
+  ProfileIcon,
+  ScanIcon,
+} from "../components/icons";
 import DiagnoseScreen from "../screens/home/DiagnoseScreen";
 import HomeScreen from "../screens/home/HomeScreen";
 import MyGardenScreen from "../screens/home/MyGardenScreen";
@@ -19,14 +21,26 @@ const Tab = createBottomTabNavigator<TabParamList>();
 const { width } = Dimensions.get("window");
 
 const TabNavigator: React.FC = () => {
+  const insets = useSafeAreaInsets();
+
+  // Calculate dynamic tab bar height based on device
+  const tabBarHeight = 60 + insets.bottom; // Base height + safe area bottom
+
+  const dynamicTabBarStyle = {
+    ...styles.tabBar,
+    height: tabBarHeight,
+    paddingBottom: insets.bottom + 8, // Safe area + small padding
+    paddingTop: 8,
+  };
+
   return (
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
-        tabBarStyle: styles.tabBar,
+        tabBarStyle: dynamicTabBarStyle,
         tabBarShowLabel: true,
         tabBarLabelStyle: styles.tabLabel,
-        tabBarActiveTintColor: "#2E7D32",
+        tabBarActiveTintColor: "#28AF6E",
         tabBarInactiveTintColor: "#9E9E9E",
       }}
     >
@@ -34,22 +48,14 @@ const TabNavigator: React.FC = () => {
         name="Home"
         component={HomeScreen}
         options={{
-          tabBarIcon: ({ focused, color }) => (
-            <View style={styles.tabIcon}>
-              <Text style={[styles.iconText, { color }]}>📚</Text>
-            </View>
-          ),
+          tabBarIcon: ({ color }) => <HomeIcon size={25} fill={color} />,
         }}
       />
       <Tab.Screen
         name="Diagnose"
         component={DiagnoseScreen}
         options={{
-          tabBarIcon: ({ focused, color }) => (
-            <View style={styles.tabIcon}>
-              <Text style={[styles.iconText, { color }]}>🛡️</Text>
-            </View>
-          ),
+          tabBarIcon: ({ color }) => <DiagnoseIcon size={25} fill={color} />,
         }}
       />
       <Tab.Screen
@@ -58,14 +64,14 @@ const TabNavigator: React.FC = () => {
         options={{
           tabBarButton: () => (
             <TouchableOpacity
-              style={styles.scanButton}
+              style={[styles.scanButton]}
               onPress={() => {
                 // Handle scan action
                 console.log("Scan pressed");
               }}
             >
               <View style={styles.scanButtonInner}>
-                <Text style={styles.scanIcon}>📷</Text>
+                <ScanIcon size={24} fill="#FFFFFF" />
               </View>
             </TouchableOpacity>
           ),
@@ -76,9 +82,7 @@ const TabNavigator: React.FC = () => {
         component={MyGardenScreen}
         options={{
           tabBarIcon: ({ focused, color }) => (
-            <View style={styles.tabIcon}>
-              <Text style={[styles.iconText, { color }]}>🌱</Text>
-            </View>
+            <MyGardenIcon size={25} fill={color} />
           ),
         }}
       />
@@ -87,9 +91,7 @@ const TabNavigator: React.FC = () => {
         component={ProfileScreen}
         options={{
           tabBarIcon: ({ focused, color }) => (
-            <View style={styles.tabIcon}>
-              <Text style={[styles.iconText, { color }]}>👤</Text>
-            </View>
+            <ProfileIcon size={25} fill={color} />
           ),
         }}
       />
@@ -98,13 +100,12 @@ const TabNavigator: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#FFFFFF",
+  },
   tabBar: {
     backgroundColor: "#FFFFFF",
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    height: 90,
-    paddingBottom: 20,
-    paddingTop: 10,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -117,40 +118,26 @@ const styles = StyleSheet.create({
   tabLabel: {
     fontSize: 12,
     fontWeight: "500",
-    marginTop: 4,
-  },
-  tabIcon: {
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  iconText: {
-    fontSize: 20,
   },
   scanButton: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: -20,
+    position: "absolute",
+    bottom: 8,
+    left: 0,
+    right: 0,
   },
   scanButtonInner: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    backgroundColor: "#4CAF50",
+    width: 64,
+    height: 64,
+    borderRadius: 32,
+    backgroundColor: "#28AF6E",
     alignItems: "center",
     justifyContent: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
     elevation: 8,
-  },
-  scanIcon: {
-    fontSize: 24,
-    color: "#FFFFFF",
+    borderWidth: 4,
+    borderColor: "#2CCC80",
   },
 });
 

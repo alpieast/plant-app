@@ -15,7 +15,7 @@ const HomeScreen: React.FC = () => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} edges={["top"]}>
       <HomeHeader searchText={searchText} onSearch={handleSearch} />
       <ScrollView
         style={styles.scrollView}
@@ -36,9 +36,6 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     flex: 1,
-  },
-  bottomSpacing: {
-    height: 100,
   },
 });
 
