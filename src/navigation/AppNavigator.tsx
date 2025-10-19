@@ -26,7 +26,7 @@ const AppNavigator: React.FC = () => {
 
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      {!isCompleted ? (
+      {isCompleted ? (
         <Stack.Screen name="Main" component={TabNavigator} />
       ) : (
         <Stack.Screen name="Onboarding" component={OnboardingStack} />
