@@ -21,9 +21,18 @@ export const colors = {
   },
   divider: "#E0E0E0",
   white: "#FFFFFF",
-  black: "#000000",
+  black: {
+    primary: "#000000",
+    secondary: "#212121",
+  },
   transparent: "transparent",
   grey: {
     light: "#F7F7F7",
+  },
+  red: {
+    primary: "#F44336",
+  },
+  gold: {
+    primary: "#D0B070",
   },
 };

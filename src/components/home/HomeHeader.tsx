@@ -30,7 +30,6 @@ const HomeHeader: React.FC = () => {
       {/* Search Bar */}
       <ImageBackground
         source={require("../../../assets/images/backgrounds/headerBackground.png")}
-        style={styles.searchContainer}
         resizeMode="cover"
       >
         <View style={styles.searchBar}>
@@ -55,8 +54,7 @@ const styles = StyleSheet.create({
   },
   greetingContainer: {
     paddingHorizontal: theme.spacing.lg,
-    paddingTop: theme.spacing.sm,
-    paddingBottom: theme.spacing.sm,
+    paddingVertical: theme.spacing.sm,
   },
   greetingText: {
     fontSize: theme.fontSize.md,
@@ -75,16 +73,13 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 
-  searchContainer: {
-    marginBottom: theme.spacing.smmm,
-  },
   searchBar: {
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: "rgba(255, 255, 255, 0.88)",
     borderRadius: theme.borderRadius.lg,
     marginHorizontal: theme.spacing.lg,
-    marginVertical: theme.spacing.smmm,
+    marginVertical: theme.spacing.smm,
     paddingHorizontal: theme.spacing.md,
     height: 44,
   },

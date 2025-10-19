@@ -1,91 +1,123 @@
+import { theme } from "@/src/theme";
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { theme } from "../../theme";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+interface PremiumBannerProps {}
 
-const PremiumBanner: React.FC = () => {
+const PremiumBanner: React.FC<PremiumBannerProps> = () => {
   const handlePress = () => {
-    // Handle premium banner press
     console.log("Premium banner pressed");
   };
 
+  const CustomEnvelopeIcon: React.FC = () => (
+    <View style={styles.envelopeIconContainer}>
+      <Image
+        source={require("../../../assets/images/icons/mail.png")}
+        style={styles.mailIcon}
+      />
+      <View style={styles.notificationBadge}>
+        <Text style={styles.notificationBadgeText}>1</Text>
+      </View>
+    </View>
+  );
+
   return (
-    <TouchableOpacity style={styles.premiumBanner} onPress={handlePress}>
-      <View style={styles.bannerLeft}>
-        <View style={styles.envelopeIcon}>
-          <Text style={styles.envelopeEmoji}>✉️</Text>
-          <View style={styles.notificationBadge}>
-            <Text style={styles.badgeText}>1</Text>
-          </View>
-        </View>
-        <View style={styles.bannerText}>
+    <TouchableOpacity
+      style={styles.premiumBanner}
+      onPress={handlePress}
+      activeOpacity={0.8}
+    >
+      <View style={styles.bannerLeftContainer}>
+        <CustomEnvelopeIcon />
+
+        <View style={styles.bannerTextContainer}>
           <Text style={styles.bannerTitle}>FREE Premium Available</Text>
           <Text style={styles.bannerSubtitle}>
             Tap to upgrade your account!
           </Text>
         </View>
       </View>
-      <Text style={styles.arrowIcon}>→</Text>
+      <Text style={styles.arrowIcon}>›</Text>
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   premiumBanner: {
-    backgroundColor: "#3E2723",
-    marginHorizontal: theme.spacing.lg,
-    borderRadius: 16,
-    padding: theme.spacing.lg,
+    backgroundColor: theme.colors.black.secondary,
+    margin: theme.spacing.lg,
+    borderRadius: theme.borderRadius.md,
+    paddingVertical: theme.spacing.mdm,
+    paddingHorizontal: theme.spacing.md,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    marginBottom: theme.spacing.xl,
+    height: 64,
   },
-  bannerLeft: {
+  bannerLeftContainer: {
     flexDirection: "row",
     alignItems: "center",
     flex: 1,
   },
-  envelopeIcon: {
-    position: "relative",
-    marginRight: theme.spacing.md,
+
+  mailIcon: {
+    width: 52,
+    height: 44,
+    marginRight: 12,
   },
-  envelopeEmoji: {
-    fontSize: 24,
-    color: "#FFD700",
+
+  envelopeIconContainer: {
+    position: "relative",
+    marginRight: 12,
+    width: 52,
+    height: 44,
+  },
+  envelopeBody: {
+    backgroundColor: theme.colors.gold.primary,
+    width: 52,
+    height: 44,
+    borderRadius: 6,
+    borderTopWidth: 10,
+    overflow: "hidden",
   },
   notificationBadge: {
     position: "absolute",
     top: -5,
-    right: -5,
-    backgroundColor: "#F44336",
+    right: 0,
+    backgroundColor: theme.colors.red.primary,
     borderRadius: 10,
     width: 20,
     height: 20,
     justifyContent: "center",
     alignItems: "center",
   },
-  badgeText: {
-    fontSize: 12,
-    fontWeight: "bold",
-    color: "#FFFFFF",
+  notificationBadgeText: {
+    fontSize: theme.fontSize.xs,
+    fontWeight: "medium",
+    color: theme.colors.white,
+    lineHeight: theme.fontSize.lg,
   },
-  bannerText: {
+
+  bannerTextContainer: {
     flex: 1,
   },
+
   bannerTitle: {
-    fontSize: 16,
+    fontSize: theme.fontSize.md,
     fontWeight: "bold",
-    color: "#FFD700",
-    marginBottom: 2,
+    color: theme.colors.gold.primary,
   },
   bannerSubtitle: {
-    fontSize: 14,
-    color: "#FFFFFF",
+    fontSize: theme.fontSize.sm,
+    color: theme.colors.gold.primary,
+    marginTop: 2,
+    fontWeight: "medium",
   },
+
   arrowIcon: {
-    fontSize: 20,
-    color: "#FFD700",
-    fontWeight: "bold",
+    fontSize: theme.fontSize.xxl,
+    color: theme.colors.gold.primary,
+    lineHeight: theme.fontSize.xxl,
+    fontWeight: "medium",
   },
 });
 
